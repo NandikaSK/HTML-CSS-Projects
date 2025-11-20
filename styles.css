@@ -1,0 +1,75 @@
+* {
+  margin: 0px; /*Removes default margin from all elements*/
+  padding: 0px; /*Removes default padding from all elements*/
+  box-sizing: inherit; /*Inherits box-sizing from parent*/
+}
+
+html {
+  margin: 0px; /* Removes default margin */
+  padding: 0px; /* Removes default padding */
+  height: 100%; /* Makes html element full height */
+  box-sizing: border-box; /* Ensures padding/border are included in width/height */
+}
+
+body {
+  display: flex; /* Enables flexbox layout */
+  height: 600px; /* Sets height of body area */
+  align-items: center; /* Vertically centers content */
+  justify-content: center; /* Horizontally centers content */
+  background-image: linear-gradient(
+    30deg,
+    #182c51,
+    #09101e
+  ); /* Background gradient */
+  content: center;
+  overflow: hidden; /* Hides any overflowing content */
+}
+
+.moon {
+  width: 220px; /* Moon width */
+  height: 220px; /* Moon height */
+  border-radius: 50%; /* Makes it perfectly circular */
+  position: relative; /* Required for the ::before element to position inside */
+  background-image: linear-gradient(
+    30deg,
+    #13223f,
+    #0e1a30
+  ); /* Moon gradient */
+}
+
+.moon::before {
+  content: ""; /* Creates empty pseudo-element */
+  background-color: rgba(0, 0, 0, 0); /* Transparent background */
+  border-radius: 50%; /* Circular shape */
+  z-index: -1; /* Places it behind the moon */
+  width: 100%; /* Same width as the moon */
+  height: 100%; /* Same height as the moon */
+  position: absolute; /* Positions relative to .moon */
+  display: block; /* Makes pseudo-element behave like a block */
+  animation: eclipse-animation 3.2s linear infinite alternate; /* Runs eclipse animation forever */
+}
+
+@keyframes eclipse-animation {
+  0% {
+    box-shadow: none; /* No glow at start */
+    transform: translate(-30px, 30px) scale(0.9); /* Moves and shrinks slightly */
+  }
+
+  50% {
+    transform: translate(0px, 0px) scale(1.02); /* Moves to center and slightly enlarges */
+    box-shadow: 0 0 10px #f9f3f2, 0 0 80px 8px #c7938b; /* Adds glowing light */
+    background-color: #efdbd8; /* Light color for bright phase */
+  }
+
+  100% {
+    transform: translate(30px, -30px) scale(0.9); /* Moves opposite direction and shrinks again */
+    box-shadow: none; /* Removes glow at end */
+  }
+}
+
+@media (max-width: 768px) {
+  .moon {
+    width: 160px; /* Smaller moon for mobile */
+    height: 160px; /* Smaller height for mobile */
+  }
+}
